@@ -28,14 +28,12 @@ public class LoginController {
 	
 	@PostMapping(path = {"/login"})
 	public String postLogin(@RequestBody HashMap<String, Object> received, Model model){
-		String id = (String) received.get("userid");
-		String pw = (String) received.get("password");
+		String userId = (String) received.get("userid");
+		String password = (String) received.get("password");
 
-		model.addAttribute("", "");
+		Boolean result = loginService.checkLogin(userId, password);
 		
-		//Boolean result = loginService.loginCheck(id, pw);
-		
-		
+		//결과에 따른 해석
 		return "";
 	}
 	
@@ -46,10 +44,12 @@ public class LoginController {
 	
 	@PostMapping(path = {"/signup"})
 	public String postSignup(@RequestBody HashMap<String, Object> received, Model model) {
-		String id = (String) received.get("userid");
-		String pw = (String) received.get("password");
+		String userId = (String) received.get("userid");
+		String password1 = (String) received.get("password1");
+		String password2 = (String) received.get("password2");
 		
-		//Boolean result = loginService.loginCheck(id, pw);
+		
+		int resultType = loginService.CheckSignUp(userId, password1, password2);
 		
 		return "";
 	}
