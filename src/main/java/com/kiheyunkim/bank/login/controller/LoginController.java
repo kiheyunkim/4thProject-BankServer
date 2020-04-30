@@ -33,7 +33,7 @@ public class LoginController {
 
 		model.addAttribute("", "");
 		
-		Boolean result = loginService.loginCheck(id, pw);
+		//Boolean result = loginService.loginCheck(id, pw);
 		
 		
 		return "";
@@ -49,7 +49,7 @@ public class LoginController {
 		String id = (String) received.get("userid");
 		String pw = (String) received.get("password");
 		
-		Boolean result = loginService.loginCheck(id, pw);
+		//Boolean result = loginService.loginCheck(id, pw);
 		
 		return "";
 	}

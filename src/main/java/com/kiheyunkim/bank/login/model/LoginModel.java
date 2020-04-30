@@ -5,8 +5,10 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "USER")
 public class LoginModel {
 	@Id
 	@Column(name = "userid",nullable = false,unique = true,length = 30)
@@ -26,6 +28,14 @@ public class LoginModel {
 	
 	public LoginModel() {
 		
+	}
+	
+	public LoginModel(String userId, String password, String salt) {
+		this.userId = userId;
+		this.password = password;
+		this.salt = salt;
+		this.lastChange = new Date(System.currentTimeMillis());
+		this.isVerified = false;
 	}
 	
 	public void setUserId(String userId) {
