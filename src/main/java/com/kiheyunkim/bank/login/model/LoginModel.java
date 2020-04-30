@@ -11,13 +11,13 @@ import javax.persistence.Table;
 @Table(name = "USER")
 public class LoginModel {
 	@Id
-	@Column(name = "userid",nullable = false,unique = true,length = 30)
+	@Column(name = "userid",nullable = false, unique = true,length = 30)
 	private String userId;
 	
-	@Column(name="password",nullable = false,unique = false,length = 64)
+	@Column(name="password",nullable = false, unique = false,length = 64)
 	private String password;
 	
-	@Column(name="salt",nullable = false,unique = false,length = 64)
+	@Column(name="salt",nullable = false, unique = false,length = 64)
 	private String salt;
 	
 	@Column(name="lastChange")
