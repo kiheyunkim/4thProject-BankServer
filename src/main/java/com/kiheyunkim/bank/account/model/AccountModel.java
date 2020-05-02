@@ -28,7 +28,6 @@ public class AccountModel {
 	@Column(name = "accountNum",nullable = false, unique = true)
 	private long accountNum;
 	
-	//1:M 매핑
 	@Column(name = "identifyStr",nullable = false, length = 64)
 	private String identifystr;
 	

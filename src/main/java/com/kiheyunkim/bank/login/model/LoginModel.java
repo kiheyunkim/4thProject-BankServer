@@ -20,11 +20,11 @@ public class LoginModel {
 	@Column(name="salt",nullable = false, unique = false,length = 64)
 	private String salt;
 	
-	@Column(name="lastChange")
+	@Column(name="lastChange",nullable = false, unique = false)
 	private Date lastChange;
 	
-	@Column(name="isVerified")
-	private Boolean isVerified; 
+	@Column(name="identifyStr", nullable = false, unique = true)
+	private String identifyStr;
 	
 	public LoginModel() {
 		
@@ -35,7 +35,6 @@ public class LoginModel {
 		this.password = password;
 		this.salt = salt;
 		this.lastChange = new Date(System.currentTimeMillis());
-		this.isVerified = false;
 	}
 	
 	public void setUserId(String userId) {
@@ -70,11 +69,12 @@ public class LoginModel {
 		this.lastChange = lastChange;
 	}
 
-	public Boolean getIsVerified() {
-		return isVerified;
+	public String getIdentifyStr() {
+		return identifyStr;
 	}
 
-	public void setIsVerified(Boolean isVerified) {
-		this.isVerified = isVerified;
+	public void setIdentifyStr(String identifyStr) {
+		this.identifyStr = identifyStr;
 	}
+
 }
