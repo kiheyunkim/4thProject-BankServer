@@ -1,14 +1,21 @@
 package com.kiheyunkim.bank.user.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumns;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "USER")
 public class UserModel {
 	@Id
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumns(value = {
+	})
 	@Column(name ="identifyStr" , length = 64, nullable = false, unique = true)
 	private String identifyStr;
 	@Column(name="name", length = 10, nullable = false, unique = false)
