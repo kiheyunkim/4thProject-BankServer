@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
 import com.kiheyunkim.bank.login.dao.LoginDao;
@@ -48,6 +49,11 @@ public class DaoBeanConfiguration {
 		localSessionFactoryBean.setAnnotatedClasses(LoginModel.class);
 		
 		return localSessionFactoryBean;
+	}
+	
+	@Bean
+	public HibernateTransactionManager traHibernateTransactionManager(SessionFactory sessionFactory) {
+		return new HibernateTransactionManager(sessionFactory);
 	}
 	
 	private Properties getHibernateProperties() {

@@ -7,16 +7,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.Size;
-
-import org.hibernate.tuple.GeneratedValueGeneration;
-import org.springframework.context.annotation.Profile;
 
 @Entity
 @Table(name = "ACCOUNT")
@@ -27,11 +20,7 @@ public class AccountModel {
 	@Max(100000000)
 	@Column(name = "accountNum",nullable = false, unique = true)
 	private long accountNum;
-	
-	//1:M 매핑
-	@Column(name = "identifyStr",nullable = false, length = 64)
-	private String identifystr;
-	
+
 	@Column(name = "password", nullable = false, length = 4)
 	private String password;
 	
@@ -45,13 +34,9 @@ public class AccountModel {
 	public AccountModel() {
 	}
 	
-	
-	public String getIdentifystr() {
-		return identifystr;
-	}
-	
-	public void setIdentifystr(String identifystr) {
-		this.identifystr = identifystr;
+	public AccountModel(String password, AccountType type) {
+		this.password = password;
+		this.accountType = type;
 	}
 	
 	public String getPassword() {
