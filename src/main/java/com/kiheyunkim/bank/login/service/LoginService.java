@@ -7,7 +7,9 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.hibernate.HibernateException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kiheyunkim.bank.login.dao.LoginDao;
 import com.kiheyunkim.bank.login.model.LoginModel;
@@ -21,6 +23,7 @@ public class LoginService {
 		this.loginDao = loginDao;
 	}
 	
+	@Transactional
 	public Boolean checkLogin(String userId, String password) {
 		LoginModel loginModel = loginDao.getUser(userId);	
 		MessageDigest messageDigest = null;
@@ -47,7 +50,8 @@ public class LoginService {
 		return false;	
 	}
 	
-	public int CheckSignUp(String userId, String password1, String password2) {
+	@Transactional(rollbackFor = {HibernateException.class})
+	public int CheckSignUp(String userId, String password1, String password2) throws HibernateException{
 		if(!password1.equals(password2)) {
 			return 1;
 		}
@@ -79,11 +83,6 @@ public class LoginService {
 			return 4;
 		}
 		
-		if(loginDao.addUser(userId, postNewPasswd, newSalt)) {
-			return 0; 
-		}
-		else {
-			return 5;
-		}
+		return 0;
 	}
 }

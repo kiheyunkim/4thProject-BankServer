@@ -23,9 +23,6 @@ public class LoginModel {
 	@Column(name="lastChange")
 	private Date lastChange;
 	
-	@Column(name="isVerified")
-	private Boolean isVerified; 
-	
 	public LoginModel() {
 		
 	}
@@ -35,7 +32,6 @@ public class LoginModel {
 		this.password = password;
 		this.salt = salt;
 		this.lastChange = new Date(System.currentTimeMillis());
-		this.isVerified = false;
 	}
 	
 	public void setUserId(String userId) {
@@ -68,13 +64,5 @@ public class LoginModel {
 
 	public void setLastChange(Date lastChange) {
 		this.lastChange = lastChange;
-	}
-
-	public Boolean getIsVerified() {
-		return isVerified;
-	}
-
-	public void setIsVerified(Boolean isVerified) {
-		this.isVerified = isVerified;
 	}
 }

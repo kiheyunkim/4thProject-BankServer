@@ -15,13 +15,13 @@ public class AccountDaoImp implements AccountDao{
 	}
 	
 	@Override
-	public String addAccount(String password, AccountType type) {
+	public AccountModel addAccount(String password, AccountType type) {
 		Session session = sessionFactory.getCurrentSession();
 		AccountModel accountModel = new AccountModel(password, type);
 		
 		session.persist(accountModel);
 		
-		return String.format("%011d", accountModel.getAccountNum());
+		return accountModel;
 	}
 
 	@Override

@@ -24,21 +24,21 @@ public class LoginDaoImp implements LoginDao{
 	}
 	
 	@Override
-	public Boolean addUser(String id, String pw, String salt) {
+	public LoginModel addUser(String id, String pw, String salt) {
 		Session session = sessionFactory.getCurrentSession();
 		LoginModel loginModel = new LoginModel(id, pw, salt);
 		session.persist(loginModel);
 		
-		return true;
+		return loginModel;
 	}
 
 	@Override
-	public Boolean modifyPassword(String userId, String prevPassword, String newPw, String salt) {
+	public LoginModel modifyPassword(String userId, String prevPassword, String newPw, String salt) {
 		Session session = sessionFactory.getCurrentSession();
 		LoginModel loginModel = new LoginModel(userId, prevPassword, salt);
 		session.update(loginModel);
 
-		return true;
+		return loginModel;
 	}
 }
 
