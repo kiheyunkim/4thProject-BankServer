@@ -20,7 +20,7 @@ public class LoginModel {
 	@Column(name="salt",nullable = false, unique = false,length = 64)
 	private String salt;
 	
-	@Column(name="lastChange")
+	@Column(name="lastChange",nullable = false, unique = false)
 	private Date lastChange;
 	
 	public LoginModel() {

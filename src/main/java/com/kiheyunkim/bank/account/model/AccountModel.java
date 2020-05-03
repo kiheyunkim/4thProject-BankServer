@@ -20,7 +20,7 @@ public class AccountModel {
 	@Max(100000000)
 	@Column(name = "accountNum",nullable = false, unique = true)
 	private long accountNum;
-	
+
 	@Column(name = "password", nullable = false, length = 4)
 	private String password;
 	
