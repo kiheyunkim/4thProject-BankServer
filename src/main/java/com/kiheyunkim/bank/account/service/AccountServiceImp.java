@@ -29,15 +29,9 @@ public class AccountServiceImp implements AccountService{
 	}
 
 	@Override
-	public void withdraw(long accountNum, int money) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	@Transactional(rollbackFor = {HibernateException.class})
-	public ErrorEnum deposit(long accountNum, int money) throws HibernateException{
-		Session session= sessionFactory.getCurrentSession();
+	public ErrorEnum withdraw(long accountNum, int money) throws HibernateException{
+		Session session = sessionFactory.getCurrentSession();
 		AccountModel account = session.get(AccountModel.class, accountNum);
 		
 		if(account == null) {
@@ -52,7 +46,25 @@ public class AccountServiceImp implements AccountService{
 		
 		session.update(account);
 		
+		return ErrorEnum.WITHDRAW_SUCCESS;
+	}
+
+	@Override
+	@Transactional(rollbackFor = {HibernateException.class})
+	public ErrorEnum deposit(long accountNum, int money) throws HibernateException{
+		Session session = sessionFactory.getCurrentSession();
+		AccountModel account = session.get(AccountModel.class, accountNum);
+		
+		if(account == null) {
+			return ErrorEnum.INVALID_ACCOUNT;
+		}
+		
+		account.setBalance(money + account.getBalance());
+		
+		session.update(account);
+		
 		return ErrorEnum.DEPOSIT_SUCCESS;
+		
 	}
 
 	@Override
