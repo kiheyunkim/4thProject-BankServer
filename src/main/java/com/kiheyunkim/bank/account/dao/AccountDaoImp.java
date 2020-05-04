@@ -1,11 +1,14 @@
 package com.kiheyunkim.bank.account.dao;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Repository;
 
 import com.kiheyunkim.bank.account.model.AccountModel;
 import com.kiheyunkim.bank.account.model.AccountType;
 
+@Repository
 public class AccountDaoImp implements AccountDao{
 
 	private final SessionFactory sessionFactory;
@@ -15,7 +18,7 @@ public class AccountDaoImp implements AccountDao{
 	}
 	
 	@Override
-	public AccountModel addAccount(String password, AccountType type) {
+	public AccountModel addAccount(String password, AccountType type) throws HibernateException {
 		Session session = sessionFactory.getCurrentSession();
 		AccountModel accountModel = new AccountModel(password, type);
 		
@@ -25,7 +28,7 @@ public class AccountDaoImp implements AccountDao{
 	}
 
 	@Override
-	public AccountModel getAccount(long accountNum) {
+	public AccountModel getAccount(long accountNum) throws HibernateException{
 		Session session = sessionFactory.getCurrentSession();
 		AccountModel accountModel = session.get(AccountModel.class, String.format("%011d", accountNum));
 		
@@ -33,7 +36,7 @@ public class AccountDaoImp implements AccountDao{
 	}
 
 	@Override
-	public void updateAccount(AccountModel accountModel) {
+	public void updateAccount(AccountModel accountModel) throws HibernateException{
 		Session session = sessionFactory.getCurrentSession();
 		session.update(accountModel);
 	}

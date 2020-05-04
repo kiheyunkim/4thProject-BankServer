@@ -5,15 +5,16 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kiheyunkim.bank.account.dao.AccountDao;
 import com.kiheyunkim.bank.account.model.AccountModel;
 import com.kiheyunkim.bank.error.ErrorEnum;
 
 public class AccountServiceImp implements AccountService{
 
-	private final SessionFactory sessionFactory;
+	private AccountDao accountDao;
 	
-	public AccountServiceImp(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
+	public AccountServiceImp(AccountDao accountDao) {
+		this.accountDao = accountDao;
 	}
 	
 	@Override
@@ -31,8 +32,8 @@ public class AccountServiceImp implements AccountService{
 	@Override
 	@Transactional(rollbackFor = {HibernateException.class})
 	public ErrorEnum withdraw(long accountNum, int money) throws HibernateException{
-		Session session = sessionFactory.getCurrentSession();
-		AccountModel account = session.get(AccountModel.class, accountNum);
+		
+		AccountModel account =  accountDao.getAccount(accountNum);
 		
 		if(account == null) {
 			return ErrorEnum.INVALID_ACCOUNT;
@@ -44,7 +45,7 @@ public class AccountServiceImp implements AccountService{
 		
 		account.setBalance(account.getBalance() - money);
 		
-		session.update(account);
+		accountDao.updateAccount(account);
 		
 		return ErrorEnum.WITHDRAW_SUCCESS;
 	}
@@ -52,8 +53,8 @@ public class AccountServiceImp implements AccountService{
 	@Override
 	@Transactional(rollbackFor = {HibernateException.class})
 	public ErrorEnum deposit(long accountNum, int money) throws HibernateException{
-		Session session = sessionFactory.getCurrentSession();
-		AccountModel account = session.get(AccountModel.class, accountNum);
+		
+		AccountModel account = accountDao.getAccount(accountNum);
 		
 		if(account == null) {
 			return ErrorEnum.INVALID_ACCOUNT;
@@ -61,7 +62,7 @@ public class AccountServiceImp implements AccountService{
 		
 		account.setBalance(money + account.getBalance());
 		
-		session.update(account);
+		accountDao.updateAccount(account);
 		
 		return ErrorEnum.DEPOSIT_SUCCESS;
 		
@@ -70,14 +71,14 @@ public class AccountServiceImp implements AccountService{
 	@Override
 	@Transactional(rollbackFor = {HibernateException.class})
 	public ErrorEnum deleteAccount(long accountNum) throws HibernateException{
-		Session session = sessionFactory.getCurrentSession();
-		AccountModel account = session.get(AccountModel.class, accountNum);
+		
+		AccountModel account = accountDao.getAccount(accountNum);
 		
 		if(account == null) {
 			return ErrorEnum.INVALID_ACCOUNT;
 		}
 		
-		session.delete(account);
+		accountDao.deleteACcount(accountNum);
 
 		return ErrorEnum.DELETE_SUCCESS;
 	}
@@ -85,8 +86,7 @@ public class AccountServiceImp implements AccountService{
 	@Override
 	@Transactional(rollbackFor = {HibernateException.class})
 	public long getBalance(long accountNum) throws HibernateException{
-		Session session = sessionFactory.getCurrentSession();
-		AccountModel account = session.get(AccountModel.class, accountNum);
+		AccountModel account = accountDao.getAccount(accountNum);
 		
 		if(account == null) {
 			return -1;
