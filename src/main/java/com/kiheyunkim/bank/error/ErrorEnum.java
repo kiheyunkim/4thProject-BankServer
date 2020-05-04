@@ -2,6 +2,8 @@ package com.kiheyunkim.bank.error;
 
 public enum ErrorEnum {
 	//ACCOUNT
-	LACK_OF_DEPOSIT,
-	WITHDRAW
+	INVALID_ACCOUNT,
+	DELETE_SUCCESS,
+	LACK_BALANCE,
+	DEPOSIT_SUCCESS
 }
