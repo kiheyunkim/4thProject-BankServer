@@ -3,8 +3,6 @@ package com.kiheyunkim.bank.account.dao;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.kiheyunkim.bank.account.model.AccountModel;
@@ -60,7 +58,7 @@ public class AccountDaoImp implements AccountDao{
 		try {
 			Session session = sessionFactory.getCurrentSession();
 			AccountModel find = session.get(AccountModel.class, accountNum);
-			session.delete(find);			
+			session.delete(find);
 		} catch (HibernateException ex) {
 			throw ex;
 		}
