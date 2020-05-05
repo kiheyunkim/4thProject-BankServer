@@ -3,10 +3,12 @@ package com.kiheyunkim.bank.account.service;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kiheyunkim.bank.account.dao.AccountDao;
 import com.kiheyunkim.bank.account.model.AccountModel;
+import com.kiheyunkim.bank.account.model.AccountType;
 import com.kiheyunkim.bank.error.ErrorEnum;
 
 public class AccountServiceImp implements AccountService{
@@ -18,20 +20,20 @@ public class AccountServiceImp implements AccountService{
 	}
 	
 	@Override
-	public void addAccount() {
+	public void addAccount(AccountType type) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void addAccointWithMoney(int money) {
+	public void addAccointWithMoney(AccountType type, int money) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	@Transactional(rollbackFor = {HibernateException.class})
-	public ErrorEnum withdraw(long accountNum, int money) throws HibernateException{
+	@Transactional(rollbackFor = {DataAccessException.class})
+	public ErrorEnum withdraw(long accountNum, int money) throws DataAccessException{
 		
 		AccountModel account =  accountDao.getAccount(accountNum);
 		
@@ -45,7 +47,11 @@ public class AccountServiceImp implements AccountService{
 		
 		account.setBalance(account.getBalance() - money);
 		
-		accountDao.updateAccount(account);
+		try {
+			accountDao.updateAccount(account);			
+		} catch (DataAccessException ex) {
+			throw ex;
+		}
 		
 		return ErrorEnum.WITHDRAW_SUCCESS;
 	}
