@@ -18,34 +18,49 @@ public class AccountDaoImp implements AccountDao{
 	}
 	
 	@Override
-	public AccountModel addAccount(String password, AccountType type) throws HibernateException {
-		Session session = sessionFactory.getCurrentSession();
-		AccountModel accountModel = new AccountModel(password, type);
-		
-		session.persist(accountModel);
-		
-		return accountModel;
+	public String addAccount(String password, AccountType type) throws HibernateException{
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			AccountModel accountModel = new AccountModel(password, type);		
+			String accountNum = (String)session.save(accountModel);
+			
+			return accountNum;				
+		} catch (HibernateException ex) {
+			throw ex;
+		}
 	}
 
 	@Override
 	public AccountModel getAccount(long accountNum) throws HibernateException{
-		Session session = sessionFactory.getCurrentSession();
-		AccountModel accountModel = session.get(AccountModel.class, String.format("%011d", accountNum));
-		
-		return accountModel;
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			AccountModel accountModel = session.get(AccountModel.class, accountNum);
+			
+			return accountModel;			
+		} catch (HibernateException ex) {
+			throw ex;
+		}
 	}
 
 	@Override
 	public void updateAccount(AccountModel accountModel) throws HibernateException{
-		Session session = sessionFactory.getCurrentSession();
-		session.update(accountModel);
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			session.update(accountModel);
+			} catch (HibernateException ex) {
+			throw ex;
+		}
+		
 	}
 
 	@Override
-	public void deleteACcount(long accountNum) {
-		Session session = sessionFactory.getCurrentSession();
-		AccountModel find = session.find(AccountModel.class, accountNum);
-		
-		session.delete(find);
+	public void deleteACcount(long accountNum) throws HibernateException{
+		try {
+			Session session = sessionFactory.getCurrentSession();
+			AccountModel find = session.get(AccountModel.class, accountNum);
+			session.delete(find);
+		} catch (HibernateException ex) {
+			throw ex;
+		}
 	}
 }
