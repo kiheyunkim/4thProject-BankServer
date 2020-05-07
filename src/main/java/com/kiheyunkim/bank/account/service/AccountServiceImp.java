@@ -1,8 +1,5 @@
 package com.kiheyunkim.bank.account.service;
 
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -57,8 +54,7 @@ public class AccountServiceImp implements AccountService{
 	}
 
 	@Override
-	@Transactional(rollbackFor = {HibernateException.class})
-	public ErrorEnum deposit(long accountNum, int money) throws HibernateException{
+	public ErrorEnum deposit(long accountNum, int money){
 		
 		AccountModel account = accountDao.getAccount(accountNum);
 		
@@ -75,8 +71,7 @@ public class AccountServiceImp implements AccountService{
 	}
 
 	@Override
-	@Transactional(rollbackFor = {HibernateException.class})
-	public ErrorEnum deleteAccount(long accountNum) throws HibernateException{
+	public ErrorEnum deleteAccount(long accountNum){
 		
 		AccountModel account = accountDao.getAccount(accountNum);
 		
@@ -90,8 +85,7 @@ public class AccountServiceImp implements AccountService{
 	}
 
 	@Override
-	@Transactional(rollbackFor = {HibernateException.class})
-	public long getBalance(long accountNum) throws HibernateException{
+	public long getBalance(long accountNum){
 		AccountModel account = accountDao.getAccount(accountNum);
 		
 		if(account == null) {
