@@ -1,22 +1,12 @@
 package com.kiheyunkim.bank.springconfig;
 
-import java.util.Properties;
-
 import javax.sql.DataSource;
 
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.AvailableSettings;
-import org.hibernate.dialect.MySQL5Dialect;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.orm.hibernate5.HibernateTransactionManager;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
-import com.kiheyunkim.bank.login.dao.LoginDao;
-import com.kiheyunkim.bank.login.dao.LoginDaoImp;
-import com.kiheyunkim.bank.login.model.LoginModel;
 import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
@@ -35,7 +25,7 @@ public class DaoBeanConfiguration {
 		
 		return datasource;
 	}
-	
+	/*
 	@Bean
 	public LoginDao loginDao(SessionFactory sessionFactory) {
 		return new LoginDaoImp(sessionFactory);
@@ -50,7 +40,6 @@ public class DaoBeanConfiguration {
 		
 		return localSessionFactoryBean;
 	}
-	
 	@Bean
 	public HibernateTransactionManager traHibernateTransactionManager(SessionFactory sessionFactory) {
 		return new HibernateTransactionManager(sessionFactory);
@@ -64,4 +53,5 @@ public class DaoBeanConfiguration {
 		
 		return properties;
 	}
+	 */
 }

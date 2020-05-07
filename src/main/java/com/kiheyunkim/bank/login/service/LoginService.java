@@ -7,7 +7,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
 import org.apache.commons.lang3.RandomStringUtils;
-import org.hibernate.HibernateException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,8 +49,7 @@ public class LoginService {
 		return false;	
 	}
 	
-	@Transactional(rollbackFor = {HibernateException.class})
-	public int CheckSignUp(String userId, String password1, String password2) throws HibernateException{
+	public int CheckSignUp(String userId, String password1, String password2){
 		if(!password1.equals(password2)) {
 			return 1;
 		}
