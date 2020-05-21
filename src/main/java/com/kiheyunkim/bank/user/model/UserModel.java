@@ -1,34 +1,12 @@
 package com.kiheyunkim.bank.user.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumns;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "USER")
 public class UserModel {
-	@Id
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumns(value = {
-	})
-	@Column(name ="identifyStr" , length = 64, nullable = false, unique = true)
 	private String identifyStr;
-	@Column(name="name", length = 10, nullable = false, unique = false)
 	private String name;
-	@Column(name="idNum", length = 64, nullable = false, unique = false)
 	private String idNum;
-	@Column(name = "birthday", length = 6,nullable = false, unique = false)
 	private String birthday;
-	@Column(name = "sex",length = 1,nullable = false, unique = false)
 	private Character sex;
-	@Column(name = "phone", length = 11, nullable = true, unique = false)
 	private String phone;
-	@Column(name = "email", length = 255, nullable = true, unique = false)
 	private String email;
 	
 	public String getIdentifyStr() {
